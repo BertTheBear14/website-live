@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Griffin Laprise | Engineering & Projects</title>
+<meta name="description" content="Personal portfolio of Griffin Laprise: engineering projects, hobbies, and contact.">
+<meta property="og:title" content="Griffin Laprise | Engineering & Projects">
+<meta property="og:description" content="Engineering projects, hobbies, and contact info.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231C1D20'/%3E%3Ctext x='32' y='42' font-family='Arial, sans-serif' font-size='28' font-weight='700' fill='%237EC8E3' text-anchor='middle'%3EGL%3C/text%3E%3C/svg%3E">
+<script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="images/projects/motor-1.jpg">
+<link rel="preload" as="image" href="images/projects/antispark-1.jpg">
+
+<style>
+  :root {
+    --bg: #1C1D20;
+    --surface: #26282C;
+    --surface-hover: #2E3136;
+    --ink: #F2F3F4;
+    --ink-soft: #A7ACB3;
+    --accent: #7EC8E3;
+    --border: #34363B;
+
+    --cat-mech: #7EC8E3;
+    --cat-elec: #F2A65A;
+    --cat-soft: #8FD19E;
+    --cat-hobby: #C79EF2;
+    --cat-school: #E8B25C;
+    --cat-digital: #A78BFA;
+    --cat-pcb: #F2789A;
+
+    --font: 'Manrope', system-ui, -apple-system, sans-serif;
+    --max-width: 1000px;
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  ul { list-style: none; }
+  img { max-width: 100%; display: block; }
+
+  .skip-link {
+    position: absolute; left: -999px; top: 0;
+    background: var(--ink); color: var(--bg);
+    padding: 0.75rem 1rem; z-index: 200;
+  }
+  .skip-link:focus { left: 1rem; top: 1rem; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .wrap { max-width: var(--max-width); margin: 0 auto; padding: 0 2rem; }
+
+  /* ---------- Scroll progress bar ---------- */
+  .progress-bar {
+    position: fixed; top: 0; left: 0; height: 3px;
+    background: var(--accent);
+    width: 0%;
+    z-index: 300;
+    transition: width 0.08s linear;
+  }
+
+  /* ---------- Nav ---------- */
+  .navbar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(28, 29, 32, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .navbar-inner {
+    max-width: var(--max-width); margin: 0 auto; padding: 0 2rem;
+    height: 64px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand-pill {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-weight: 700; font-size: 0.92rem;
+  }
+  .status-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--cat-soft);
+    box-shadow: 0 0 0 3px rgba(143, 209, 158, 0.2);
+  }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a { font-weight: 600; font-size: 0.92rem; color: var(--ink-soft); transition: color 0.15s ease; }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ---------- Marquee ---------- */
+  .marquee-section {
+    padding-top: 2.5rem;
+    overflow: hidden;
+    /* Isolate this subtree so scroll-triggered animations elsewhere on the
+       page (the .reveal fade-ins) can never steal a frame from this one,
+       which is what caused the scrolling strip to visibly hitch. */
+    contain: layout style paint;
+    isolation: isolate;
+  }
+  .marquee-track {
+    display: flex;
+    gap: 1rem;
+    width: max-content;
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+  .marquee-item {
+    width: 180px; height: 130px;
+    border-radius: var(--radius);
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; font-weight: 700;
+    color: rgba(255,255,255,0.65);
+    border: 1px solid var(--border);
+  }
+  .marquee-item.has-photo { background: #fff; padding: 0; overflow: hidden; }
+  .marquee-item img { width: 100%; height: 100%; object-fit: contain; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 3rem 0 5rem;
+    text-align: center;
+  }
+
+  .hero-photo-tilt {
+    width: 150px; height: 150px;
+    margin: 0 auto 1.75rem;
+    perspective: 800px;
+  }
+  .hero-photo-inner {
+    position: relative;
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--border);
+    transform-style: preserve-3d;
+    transition: transform 0.15s ease-out, border-color 0.25s ease;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+  }
+  .hero-photo-tilt:hover .hero-photo-inner { border-color: var(--accent); }
+  .hero-photo-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .hero-photo-glare {
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.35), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+  }
+  .hero-photo-tilt:hover .hero-photo-glare { opacity: 1; }
+  .hero-eyebrow {
+    font-weight: 700; font-size: 0.85rem;
+    color: var(--accent);
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+  }
+  .hero-name {
+    font-weight: 800;
+    font-size: clamp(2.6rem, 7vw, 4.2rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+  .hero-bio {
+    max-width: 56ch; margin: 0 auto 2.25rem;
+    color: var(--ink-soft);
+    font-size: 1.08rem;
+  }
+  .hero-actions { display: flex; gap: 0.9rem; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    font-weight: 700; font-size: 0.9rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    transition: transform 0.1s ease, filter 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    display: inline-block;
+  }
+  .btn-primary { background: var(--accent); color: #10242C; }
+  .btn-primary:hover { transform: translateY(-1px); filter: brightness(1.08); }
+  .btn-ghost { border-color: var(--border); color: var(--ink); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ---------- Reveal-on-scroll ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.in-view { opacity: 1; transform: translateY(0); }
+
+  /* ---------- Sections ---------- */
+  .section { padding: 5rem 0; border-top: 1px solid var(--border); }
+  .section-label {
+    font-weight: 700; font-size: 0.8rem;
+    color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em;
+    margin-bottom: 0.75rem;
+  }
+  .section-title { font-weight: 800; font-size: 1.9rem; margin-bottom: 2.5rem; }
+
+  /* ---------- Project list ---------- */
+  .project-list { display: flex; flex-direction: column; }
+  .project-row {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.6rem 0.5rem;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: padding-left 0.25s ease, background 0.25s ease;
+  }
+  .project-row:hover { padding-left: 1rem; background: rgba(255,255,255,0.02); }
+  .project-row:first-child { border-top: 1px solid var(--border); }
+
+  .project-left { display: flex; align-items: center; gap: 1rem; min-width: 0; }
+  .cat-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+  .cat-mech { background: var(--cat-mech); }
+  .cat-elec { background: var(--cat-elec); }
+  .cat-soft { background: var(--cat-soft); }
+  .cat-hobby { background: var(--cat-hobby); }
+  .cat-school { background: var(--cat-school); }
+  .cat-digital { background: var(--cat-digital); }
+  .cat-pcb { background: var(--cat-pcb); }
+
+  .project-text { min-width: 0; }
+  .project-name { font-weight: 700; font-size: 1.15rem; margin-bottom: 0.2rem; }
+  .project-tagline { font-size: 0.9rem; color: var(--ink-soft); }
+  .project-arrow {
+    font-size: 1.2rem; color: var(--ink-soft);
+    transition: transform 0.25s ease, color 0.25s ease;
+    flex-shrink: 0;
+  }
+  .project-row:hover .project-arrow { transform: translateX(4px) rotate(45deg); color: var(--accent); }
+
+  /* Cursor-follow preview */
+  .hover-preview {
+    position: fixed;
+    top: 0; left: 0;
+    width: 200px; height: 140px;
+    border-radius: var(--radius);
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 150;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 700; color: rgba(255,255,255,0.7);
+    border: 1px solid var(--border);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  }
+  .hover-preview.visible { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+  /* ---------- Hobby grid ---------- */
+  .hobby-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  .hobby-col { display: flex; flex-direction: column; gap: 1.25rem; }
+  .hobby-col:nth-child(2) { margin-top: 2.5rem; }
+  .hobby-tile {
+    border-radius: var(--radius);
+    aspect-ratio: 3 / 4;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    display: flex; align-items: flex-end; padding: 1rem;
+    font-weight: 700; font-size: 0.85rem;
+    color: var(--ink-soft);
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+  }
+  .hobby-tile.has-photo { color: #fff; }
+  .hobby-tile .hobby-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+  .hobby-tile .hobby-photo.contain-fit { object-fit: contain; background: #fff; }
+  .hobby-tile .hobby-photo-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.65) 100%);
+    z-index: 1;
+  }
+  .hobby-tile .hobby-label { position: relative; z-index: 2; }
+  .hobby-tile[role="button"] { cursor: pointer; transition: transform 0.2s ease; }
+  .hobby-tile[role="button"]:hover { transform: translateY(-3px); }
+  .hobby-tile[role="button"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .hobby-col:nth-child(1) .hobby-tile { background: linear-gradient(160deg, #2E4A57, #1C1D20); }
+  .hobby-col:nth-child(2) .hobby-tile { background: linear-gradient(160deg, #4A3A24, #1C1D20); }
+  .hobby-col:nth-child(3) .hobby-tile { background: linear-gradient(160deg, #2E4A34, #1C1D20); }
+
+  /* ---------- Contact section ---------- */
+  .contact-section { padding-bottom: 3rem; }
+  .contact-lede { color: var(--ink-soft); max-width: 50ch; margin-bottom: 2rem; }
+  .contact-details { display: flex; flex-direction: column; gap: 0.5rem; }
+  .contact-line {
+    font-weight: 800;
+    font-size: clamp(1.5rem, 5vw, 2.4rem);
+    color: var(--ink);
+    display: inline-block;
+    width: fit-content;
+    transition: color 0.2s ease;
+  }
+  .contact-line:hover { color: var(--accent); }
+
+  /* ---------- In-progress status & scroll-filled progress bars ---------- */
+  .status-pill {
+    font-size: 0.72rem; font-weight: 700;
+    background: rgba(242, 166, 90, 0.14);
+    color: var(--cat-elec);
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  .inprogress-row { cursor: pointer; }
+  .inprogress-row:hover { padding-left: 0.5rem; }
+  .progress-track {
+    margin-top: 0.7rem;
+    width: 220px; max-width: 60vw;
+    height: 4px;
+    border-radius: 999px;
+    background: var(--border);
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+    border-radius: 999px;
+    transition: width 1s ease;
+  }
+
+  /* ---------- Experience ---------- */
+  .experience-list { display: flex; flex-direction: column; }
+  .experience-row {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 1.5rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .experience-row:first-child { border-top: 1px solid var(--border); }
+  .experience-dates {
+    font-weight: 600; font-size: 0.85rem;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .experience-role { font-weight: 800; font-size: 1.15rem; margin-bottom: 0.25rem; }
+  .experience-company {
+    font-weight: 600; font-size: 0.9rem;
+    color: var(--accent);
+    margin-bottom: 0.7rem;
+  }
+  .experience-desc { color: var(--ink-soft); max-width: 60ch; font-size: 0.95rem; }
+  .experience-bullets {
+    color: var(--ink-soft); max-width: 62ch; font-size: 0.95rem;
+    display: flex; flex-direction: column; gap: 0.6rem;
+  }
+  .experience-bullets li { position: relative; padding-left: 1.1rem; }
+  .experience-bullets li::before {
+    content: '';
+    position: absolute; left: 0; top: 0.55em;
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--accent);
+  }
+
+  /* ---------- About ---------- */
+  .about-text { color: var(--ink-soft); max-width: 65ch; margin-bottom: 2rem; }
+  .skills-list { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+  .skills-list li {
+    font-size: 0.82rem; font-weight: 600;
+    border: 1px solid var(--border);
+    padding: 0.45rem 0.9rem;
+    border-radius: 999px;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Footer ---------- */
+  .footer { border-top: 1px solid var(--border); padding: 4rem 0 2.5rem; }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+  }
+  .footer-name { font-weight: 800; font-size: 1.3rem; margin-bottom: 0.6rem; }
+  .footer-tagline { color: var(--ink-soft); font-size: 0.92rem; max-width: 42ch; }
+  .footer-heading {
+    font-weight: 700; font-size: 0.78rem;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--ink-soft); margin-bottom: 1rem;
+  }
+  .footer-links { display: flex; flex-direction: column; gap: 0.65rem; }
+  .footer-links a, .footer-links button {
+    font-size: 0.92rem; font-weight: 600; color: var(--ink);
+    background: none; border: none; cursor: pointer; text-align: left;
+    font-family: var(--font); padding: 0;
+  }
+  .footer-links a:hover, .footer-links button:hover { color: var(--accent); }
+  .footer-bottom {
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+    font-size: 0.8rem; color: var(--ink-soft);
+  }
+
+  /* ---------- Filter bar ---------- */
+  .filter-bar { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 2rem; }
+  .filter-chip {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-family: var(--font); font-weight: 600; font-size: 0.85rem;
+    color: var(--ink-soft);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  }
+  .filter-chip:hover { color: var(--ink); border-color: var(--accent); }
+  .filter-chip.active { color: var(--ink); border-color: var(--accent); background: rgba(126, 200, 227, 0.1); }
+  .filter-empty { color: var(--ink-soft); padding: 2rem 0; }
+  .project-row.filtered-out { display: none; }
+
+  /* ---------- Project tag list ---------- */
+  .tag-list { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.6rem; }
+  .tag-list li {
+    font-size: 0.68rem; font-weight: 700;
+    background: rgba(126, 200, 227, 0.1);
+    color: var(--accent);
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+  }
+
+  /* ---------- Project detail modal ---------- */
+  .modal-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(10, 11, 12, 0.75);
+    backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 1.5rem;
+    z-index: 500;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+  .modal-backdrop.open { opacity: 1; pointer-events: auto; }
+  .modal-card {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    max-width: 640px; width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    transform: translateY(16px) scale(0.98);
+    transition: transform 0.25s ease;
+  }
+  .modal-backdrop.open .modal-card { transform: translateY(0) scale(1); }
+  .modal-close {
+    position: absolute; top: 1rem; right: 1rem;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(255,255,255,0.06); border: 1px solid var(--border);
+    color: var(--ink); font-size: 1rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 2;
+  }
+  .modal-close:hover { border-color: var(--accent); color: var(--accent); }
+  .modal-visual {
+    width: 100%; aspect-ratio: 16 / 10;
+    background: linear-gradient(135deg, #2E4A57, #1C1D20);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.5); font-size: 0.85rem; font-weight: 600;
+  }
+  .modal-visual model-viewer { width: 100%; height: 100%; --poster-color: transparent; }
+  .modal-body { padding: 2rem; }
+  .modal-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .modal-tags span {
+    font-size: 0.7rem; font-weight: 700;
+    background: rgba(126, 200, 227, 0.1); color: var(--accent);
+    padding: 0.25rem 0.6rem; border-radius: 999px;
+  }
+  .modal-title { font-weight: 800; font-size: 1.4rem; margin-bottom: 0.75rem; }
+  .modal-desc { color: var(--ink-soft); margin-bottom: 1.5rem; }
+  .modal-links { display: flex; gap: 1rem; }
+  .modal-links a {
+    font-weight: 700; font-size: 0.88rem;
+    color: var(--ink); border-bottom: 1px solid var(--border); padding-bottom: 2px;
+  }
+  .modal-links a:hover { color: var(--accent); border-color: var(--accent); }
+
+  .modal-gallery { display: flex; gap: 0.6rem; margin-top: 1.5rem; flex-wrap: wrap; }
+  .modal-gallery img {
+    width: 64px; height: 64px; object-fit: cover;
+    border-radius: 6px; cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.15s ease;
+  }
+  .modal-gallery img:hover, .modal-gallery img.active { border-color: var(--accent); }
+
+  /* ---------- Back to top ---------- */
+  .back-to-top {
+    position: fixed; bottom: 1.75rem; right: 1.75rem;
+    width: 46px; height: 46px; border-radius: 50%;
+    background: var(--accent); color: #10242C;
+    border: none; font-size: 1.1rem; font-weight: 700; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+    opacity: 0; pointer-events: none; transform: translateY(10px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    z-index: 200;
+  }
+  .back-to-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+
+  /* ---------- Toast (easter egg / feedback) ---------- */
+  .toast {
+    position: fixed; bottom: 1.75rem; left: 50%;
+    transform: translate(-50%, 20px);
+    background: var(--ink); color: var(--bg);
+    font-weight: 700; font-size: 0.88rem;
+    padding: 0.85rem 1.5rem; border-radius: 999px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 600;
+    white-space: nowrap;
+  }
+  .toast.visible { opacity: 1; transform: translate(-50%, 0); }
+
+  /* ---------- Skill icons ---------- */
+  .skill-icon { width: 15px; height: 15px; margin-right: 0.4rem; vertical-align: -2px; }
+  .skills-list li { display: inline-flex; align-items: center; }
+
+  /* ---------- Experience timeline ---------- */
+  .timeline { position: relative; }
+  .timeline .experience-row {
+    display: grid;
+    grid-template-columns: 140px 20px 1fr;
+    gap: 0 1.5rem;
+    align-items: start;
+  }
+  .timeline .timeline-dot {
+    position: relative;
+    width: 20px; height: 20px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .timeline .timeline-dot::before {
+    content: '';
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent);
+    border: 3px solid var(--bg);
+    box-shadow: 0 0 0 1px var(--border);
+    z-index: 1;
+  }
+  .timeline .experience-row:not(:last-child) .timeline-dot::after {
+    content: '';
+    position: absolute;
+    top: 20px; bottom: -2rem;
+    left: 50%; transform: translateX(-50%);
+    width: 2px;
+    background: var(--border);
+  }
+  .timeline .experience-dates { padding-top: 0.15rem; }
+
+  /* ---------- Badges / certifications ---------- */
+  .badge-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .badge-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 1.75rem; text-align: center;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .badge-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .badge-icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
+  .badge-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.3rem; }
+  .badge-issuer { font-size: 0.8rem; color: var(--ink-soft); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 760px) {
+    .wrap, .navbar-inner { padding: 0 1.25rem; }
+    .nav-links { gap: 1rem; }
+    .nav-links a { font-size: 0.82rem; }
+    .section { padding: 3rem 0; }
+    .project-row { flex-wrap: wrap; }
+    .hover-preview { display: none; }
+    .hobby-grid { grid-template-columns: 1fr 1fr; }
+    .hobby-col:nth-child(2) { margin-top: 0; }
+    .hobby-col:nth-child(3) { display: none; }
+    .progress-track { width: 100%; max-width: 100%; }
+    .experience-row { grid-template-columns: 1fr; gap: 0.4rem; }
+    .timeline .experience-row { grid-template-columns: 1fr; }
+    .timeline .timeline-dot { display: none; }
+    .badge-grid { grid-template-columns: 1fr; }
+    .modal-body { padding: 1.5rem; }
+    .back-to-top { bottom: 1.25rem; right: 1.25rem; width: 42px; height: 42px; }
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .project-row, .hover-preview, .btn { transition: none; }
+    .modal-backdrop, .modal-card, .back-to-top, .toast { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="navbar">
+  <div class="navbar-inner">
+    <a href="#top" class="brand-pill">
+      Griffin Laprise
+    </a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#top">Home</a>
+      <a href="#projects">Projects</a>
+      <a href="#inprogress">In Progress</a>
+      <a href="#experience">Experience</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#hobbies">Hobbies</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section id="top" class="marquee-section" aria-hidden="true">
+    <div class="marquee-track" id="marqueeTrack">
+    </div>
+  </section>
+
+  <section class="hero wrap">
+    <div class="hero-photo-tilt" id="heroPhotoTilt">
+      <div class="hero-photo-inner">
+        <img src="images/hero.jpg" alt="Griffin Laprise" class="hero-photo-img">
+        <div class="hero-photo-glare" id="heroPhotoGlare"></div>
+      </div>
+    </div>
+    <p class="hero-eyebrow">Engineering · Building · Making</p>
+    <h1 class="hero-name">Griffin Laprise</h1>
+    <p class="hero-bio">
+      Aspiring electrical engineer from London, Canada, third-year survivor, and robotics and automation enthusiast. Grew up on a farm, which probably explains why I like fixing things and taking on so many projects. My skill set includes circuit design, embedded systems, a little too much CAD, and a mildly concerning tolerance for inhaling solder fumes.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn btn-primary magnetic">See my projects</a>
+      <a href="#contact" class="btn btn-ghost magnetic">Get in touch</a>
+      <a href="resume.pdf" download class="btn btn-ghost magnetic">Download resume &#8595;</a>
+    </div>
+  </section>
+
+  <section id="projects" class="section wrap">
+    <p class="section-label reveal">Projects</p>
+    <h2 class="section-title reveal">What I've been building</h2>
+
+    <div class="filter-bar reveal" id="filterBar">
+      <button class="filter-chip active" data-filter="all" type="button">All</button>
+      <button class="filter-chip" data-filter="mech" type="button"><span class="cat-dot cat-mech" aria-hidden="true"></span>CAD</button>
+      <button class="filter-chip" data-filter="elec" type="button"><span class="cat-dot cat-elec" aria-hidden="true"></span>Electrical</button>
+      <button class="filter-chip" data-filter="soft" type="button"><span class="cat-dot cat-soft" aria-hidden="true"></span>Software</button>
+      <button class="filter-chip" data-filter="digitallogic" type="button"><span class="cat-dot cat-digital" aria-hidden="true"></span>Digital Logic</button>
+      <button class="filter-chip" data-filter="pcbdesign" type="button"><span class="cat-dot cat-pcb" aria-hidden="true"></span>PCB Design</button>
+      <button class="filter-chip" data-filter="school" type="button"><span class="cat-dot cat-school" aria-hidden="true"></span>School</button>
+    </div>
+
+    <div class="project-list" id="projectList">
+      <div class="project-row reveal" data-preview-color="1" data-category="elec mech school" data-tags="Electrical,School,CAD"
+           data-project="motor" data-report="reports/motor-report.pdf"
+           data-description="A design project for ECE 3332a, where our team of four was tasked with designing, calculating, and building a working brushless DC motor completely from scratch, including CAD for the rotor and stator, and all the electromagnetic calculations behind it. I helped design a radial flux outrunner motor with a 6-tooth stator and 8-pole rotor, driven from a three-phase delta connection at 12V, and calculated the required 34 turns per tooth before we 3D printed and hand-wound the stator ourselves. The finished motor ran at a stable 2360 rpm while drawing just 0.8A, well under our power budget. Full calculations and write-up are in the linked report below.">
+        <div class="project-left">
+          <span class="cat-dot cat-elec" aria-hidden="true"></span>
+          <div class="project-text">
+            <div class="project-name">Brushless DC Motor</div>
+            <div class="project-tagline">School project: designed, calculated, and built a working 6-tooth, 8-pole radial flux BLDC motor from scratch.</div>
+            <ul class="tag-list">
+              <li>Electrical</li><li>School</li><li>CAD</li>
+            </ul>
+          </div>
+        </div>
+        <span class="project-arrow" aria-hidden="true">&#8599;</span>
+      </div>
+
+      <div class="project-row reveal" data-preview-color="2" data-category="elec pcbdesign" data-tags="Electrical,PCB Design"
+           data-project="antispark" data-no-links="true"
+           data-description="Personally designed for Western Engineering Electrium Mobility (WEEM), a student design team building cost-effective, eco-friendly personal electric vehicles. Built for the team's electric skateboard to limit inrush current when the battery is first connected. Without it, plugging in the battery causes a large current spike that can arc and pit the connector contacts and stress the ESC and other downstream components. The AntiSpark PCB softly pre-charges the circuit through a resistor, and as voltage builds across it, a pair of MOSFETs sequentially reach their gate threshold and turn on one after another, letting the battery connect safely every time. Designed in Altium while leading the team's electrical sub-team.">
+        <div class="project-left">
+          <span class="cat-dot cat-elec" aria-hidden="true"></span>
+          <div class="project-text">
+            <div class="project-name">AntiSpark PCB</div>
+            <div class="project-tagline">Built for WEEM's electric skateboard to limit inrush current when the battery connects.</div>
+            <ul class="tag-list">
+              <li>Electrical</li><li>PCB Design</li>
+            </ul>
+          </div>
+        </div>
+        <span class="project-arrow" aria-hidden="true">&#8599;</span>
+      </div>
+
+      <div class="project-row reveal" data-preview-color="3" data-category="elec mech pcbdesign" data-tags="Electrical,PCB Design,CAD"
+           data-project="speaker" data-no-links="true"
+           data-description="A fully custom-built Bluetooth speaker, with nothing off-the-shelf anywhere inside it. Bluetooth audio is received and shaped on its own custom-designed PCB, running straight into a matching custom preamplifier board rather than a bought module, before feeding a custom-built dual-channel amplifier. That amp was built specifically to run as a true dual 40W RMS design, driving two 40W RMS speakers for 80W RMS of combined output. Power comes from a custom-built Li-ion battery pack, protected and balanced by its own custom-designed BMS board. Every enclosure in the build, for the electronics and for the speakers themselves, is fully 3D-printed and designed in-house, making the whole thing, electrically and physically, entirely from scratch.">
+        <div class="project-left">
+          <span class="cat-dot cat-elec" aria-hidden="true"></span>
+          <div class="project-text">
+            <div class="project-name">Custom Bluetooth Speaker</div>
+            <div class="project-tagline">A fully custom-built Bluetooth speaker: custom PCBs, a dual 40W RMS amp, a custom Li-ion pack with its own BMS, and fully 3D-printed enclosures.</div>
+            <ul class="tag-list">
+              <li>Electrical</li><li>PCB Design</li><li>CAD</li>
+            </ul>
+          </div>
+        </div>
+        <span class="project-arrow" aria-hidden="true">&#8599;</span>
+      </div>
+
+      <div class="project-row reveal" data-preview-color="4" data-category="elec mech digitallogic" data-tags="Electrical,CAD,Digital Logic"
+           data-project="belt" data-no-links="true"
+           data-description="A purely for-fun build with no practical purpose whatsoever. As a kid I watched The Goonies and thought it was hilarious how Data had a belt full of goofy gadgets that somehow always came in clutch, and that idea stuck with me long enough that I eventually built my own version of it. Mine is mounted to a 4-point harness and loaded with a battery, a mini hand-crank generator, a retractable LED light, a radio with its own antenna and speaker, a small solar panel, a pop-open drink holder, a retractable bottle opener, and a strip of LEDs that flashes red and blue like an ambulance. Powering the whole thing on isn't as simple as flipping one switch either: the ignition system is wired as an SR latch, requiring a two-stage switch-and-button sequence to arm before anything turns on. There's no real problem this solves, it was just a fun excuse to see how many ridiculous gadgets I could cram onto one harness.">
+        <div class="project-left">
+          <span class="cat-dot cat-elec" aria-hidden="true"></span>
+          <div class="project-text">
+            <div class="project-name">Gadget Belt</div>
+            <div class="project-tagline">A just-for-fun gadget belt inspired by The Goonies, with a hand-crank generator, radio, solar panel, and an SR-latch ignition sequence.</div>
+            <ul class="tag-list">
+              <li>Electrical</li><li>CAD</li><li>Digital Logic</li>
+            </ul>
+          </div>
+        </div>
+        <span class="project-arrow" aria-hidden="true">&#8599;</span>
+      </div>
+
+      <div class="project-row reveal" data-preview-color="3" data-category="elec pcbdesign school" data-tags="Electrical,PCB Design,School"
+           data-project="wavegen" data-no-links="true"
+           data-description="A school project built around taking a single DC signal and shaping it into three different waveforms: triangle, square, and sine. A multivibrator sets up the switching behind the square and triangle waves, and an integrator built from op-amps shapes the triangle wave into a sine wave. The whole circuit was etched onto a custom single-sided PCB, which I designed and had CNC machined in-house at school.">
+        <div class="project-left">
+          <span class="cat-dot cat-elec" aria-hidden="true"></span>
+          <div class="project-text">
+            <div class="project-name">Wave Generator</div>
+            <div class="project-tagline">Converts a DC signal into triangle, square, and sine waves on a custom CNC-machined PCB.</div>
+            <ul class="tag-list">
+              <li>Electrical</li><li>PCB Design</li><li>School</li>
+            </ul>
+          </div>
+        </div>
+        <span class="project-arrow" aria-hidden="true">&#8599;</span>
+      </div>
+
+      <div class="project-row reveal" data-preview-color="4" data-category="elec pcbdesign soft school" data-tags="Electrical,PCB Design,Software,School"
+           data-project="spotwelder" data-no-links="true"
+           data-description="A team project centered on automating a spot welder. Our controller managed the force, voltage, current, and position of the motor that drove the electrode applying the weld, all through a custom GUI where you could set limits for force and position and watch live plots of each of the four input signals. The controller also logged 40kHz of data across the 0.2 second window each weld took place in. We designed a custom PCB to bring all of our inputs into the microcontroller, complete with differential amplifiers for the load cells, clamping diodes to keep voltages within a safe range, and anti-aliasing filters on all four inputs to keep the logged data clean.">
+        <div class="project-left">
+          <span class="cat-dot cat-elec" aria-hidden="true"></span>
+          <div class="project-text">
+            <div class="project-name">Spot Welder Motor Controller</div>
+            <div class="project-tagline">Automated force, voltage, current, and position control for a spot welder, with a live-plotting GUI and custom PCB.</div>
+            <ul class="tag-list">
+              <li>Electrical</li><li>PCB Design</li><li>Software</li><li>School</li>
+            </ul>
+          </div>
+        </div>
+        <span class="project-arrow" aria-hidden="true">&#8599;</span>
+      </div>
+
+      <div class="project-row reveal" data-preview-color="1" data-category="elec mech" data-tags="Electrical,CAD"
+           data-project="diyspotwelder" data-no-links="true"
+           data-description="A portable spot welder built almost entirely from a scrapped microwave transformer. Microwave transformers are designed to do the opposite of what a spot welder needs, stepping voltage up while stepping current down, so I tore into one, pulled the original secondary winding, and rewound it myself with much heavier gauge cable at a far lower turn ratio. That flips the transformer's behavior completely, turning it into a low-voltage, high-current source capable of dumping enough current through a joint to fuse metal in a fraction of a second. The rewound transformer feeds into a spot welder circuit, powered by its own small 9V transformer, that lets me dial in both weld power and weld duration for consistent, repeatable welds instead of guessing. Triggering is handled by a sewing machine foot pedal I wired in as the control pedal, so I can fire a weld hands-free without ever looking away from the joint. I also added a transfer switch to flip between timed pulses and constant output, giving me sustained high current on demand for the rare jobs that need it. The whole system lives in a custom-built enclosure with its own welding probe, turning a gutted microwave part into a spot welder I now reach for as one of my go-to shop tools.">
+        <div class="project-left">
+          <span class="cat-dot cat-elec" aria-hidden="true"></span>
+          <div class="project-text">
+            <div class="project-name">Transformer-Driven Spot Welder</div>
+            <div class="project-tagline">A portable spot welder built by rewinding a scrapped microwave transformer for high current, with adjustable power and timing control.</div>
+            <ul class="tag-list">
+              <li>Electrical</li><li>CAD</li>
+            </ul>
+          </div>
+        </div>
+        <span class="project-arrow" aria-hidden="true">&#8599;</span>
+      </div>
+    </div>
+    <p class="filter-empty" id="filterEmpty" hidden>No projects match that filter yet.</p>
+  </section>
+
+  <section id="inprogress" class="section wrap">
+    <p class="section-label reveal">In progress</p>
+    <h2 class="section-title reveal">Currently building</h2>
+
+    <div class="project-list">
+      <div class="project-row inprogress-row reveal" data-progress="35" data-preview-color="1" data-project="alu" data-tags="Electrical,Digital Logic" tabindex="0" role="button"
+           data-description="A 16-bit Arithmetic Logic Unit built entirely from discrete logic gates: no microcontroller, no HDL, no code of any kind. It takes two 16-bit inputs and feeds them into a 16-bit full adder that also handles subtraction: the second input can be routed through a bank of XOR gates to form its two's complement, with a 16-bit 2-to-1 mux selecting between the regular value and the inverted one depending on whether the operation is addition or subtraction. Alongside the adder/subtractor, the ALU computes bitwise AND, OR, and XOR across both inputs, giving five selectable operations in total. A 16-bit 4-to-1 mux picks which result actually reaches the output, and the ALU also generates zero and overflow flags. The whole thing is hand-soldered onto a protoboard, built from well over 100 logic ICs and more than 300 individual logic gates.">
+        <div class="project-left">
+          <span class="cat-dot cat-elec" aria-hidden="true"></span>
+          <div class="project-text">
+            <div class="project-name">16-Bit ALU</div>
+            <div class="project-tagline">A fully discrete 16-bit ALU built entirely from logic gates: no microcontroller, no code, just hand-soldered ICs.</div>
+            <div class="progress-track"><div class="progress-fill"></div></div>
+          </div>
+        </div>
+        <span class="status-pill">In progress</span>
+      </div>
+
+      <div class="project-row inprogress-row reveal" data-progress="5" data-preview-color="2" data-project="home-automation" data-tags="Electrical,Software,CAD" tabindex="0" role="button"
+           data-description="A whole-house automation system built around a Raspberry Pi as the central hub. A network of wireless sensors placed around the house, starting with temperature and motion detection, feeds data back to the Pi so it always has a live picture of what's going on at home. Sitting on top of that is a built-in AI assistant that connects directly into a personal manager Apps Script I built myself, letting it read and act on my own schedule, tasks, and reminders instead of just reacting to sensor data. The whole system is designed to live in a docking station somewhere central in the house, but it's built to come with me too: pull it off the dock and it works as a standalone, portable unit, basically a second phone dedicated entirely to running my home and my day.">
+        <div class="project-left">
+          <span class="cat-dot cat-elec" aria-hidden="true"></span>
+          <div class="project-text">
+            <div class="project-name">Home Automation System</div>
+            <div class="project-tagline">A Raspberry Pi-based home hub with wireless sensors, a built-in AI tied to my personal task manager, and a portable docking station.</div>
+            <div class="progress-track"><div class="progress-fill"></div></div>
+          </div>
+        </div>
+        <span class="status-pill">In progress</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="hobbies" class="section wrap">
+    <p class="section-label reveal">Off the clock</p>
+    <h2 class="section-title reveal">What else I'm up to</h2>
+
+    <div class="hobby-grid">
+      <div class="hobby-col reveal">
+        <div class="hobby-tile has-photo" data-hobby="woodworking" tabindex="0" role="button">
+          <img class="hobby-photo" src="images/hobbies/woodworking-1.jpg" alt="Handmade walnut wood table top">
+          <div class="hobby-photo-overlay"></div>
+          <span class="hobby-label">Woodworking</span>
+        </div>
+        <div class="hobby-tile has-photo" data-hobby="watchrepair" tabindex="0" role="button">
+          <img class="hobby-photo" src="images/hobbies/watchrepair-1.jpg" alt="Mechanical watch movement being repaired">
+          <div class="hobby-photo-overlay"></div>
+          <span class="hobby-label">Mechanical Watch Repair</span>
+        </div>
+      </div>
+      <div class="hobby-col reveal">
+        <div class="hobby-tile has-photo" data-hobby="printing3d" tabindex="0" role="button">
+          <img class="hobby-photo contain-fit" src="images/hobbies/printing3d-1.jpg" alt="3D printed brushless motor exploded view">
+          <div class="hobby-photo-overlay"></div>
+          <span class="hobby-label">3D Printing</span>
+        </div>
+        <div class="hobby-tile has-photo" data-hobby="projectcars" tabindex="0" role="button">
+          <img class="hobby-photo" src="images/hobbies/projectcars-1.jpg" alt="Chevy K10 project truck">
+          <div class="hobby-photo-overlay"></div>
+          <span class="hobby-label">Project Cars</span>
+        </div>
+      </div>
+      <div class="hobby-col reveal">
+        <div class="hobby-tile has-photo" data-hobby="farming" tabindex="0" role="button">
+          <img class="hobby-photo" src="images/hobbies/farming-1.jpg" alt="Farm equipment at sunset">
+          <div class="hobby-photo-overlay"></div>
+          <span class="hobby-label">Farming</span>
+        </div>
+        <div class="hobby-tile has-photo" data-hobby="fishing" tabindex="0" role="button">
+          <img class="hobby-photo" src="images/hobbies/fishing-1.jpg" alt="Fishing rod at sunset by the lake">
+          <div class="hobby-photo-overlay"></div>
+          <span class="hobby-label">Fishing</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" class="section wrap">
+    <p class="section-label reveal">Experience</p>
+    <h2 class="section-title reveal">Positions</h2>
+
+    <div class="experience-list timeline">
+      <div class="experience-row reveal">
+        <div class="experience-dates">May 2026 - Present</div>
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <div class="experience-main">
+          <div class="experience-role">Electrical Design Engineer</div>
+          <div class="experience-company">Whitty Stallaert Engineering · Internship</div>
+          <ul class="experience-bullets">
+            <li>Designing electrical systems for commercial and institutional projects, including lighting layouts, photometric analysis, and power distribution systems.</li>
+            <li>Supporting projects through the full design and construction lifecycle, from technical drawings to on-site implementation.</li>
+            <li>Conducting site inspections and collaborating with multidisciplinary teams to ensure designs meet project specifications and industry standards.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="experience-row reveal">
+        <div class="experience-dates">October 2025 - May 2026</div>
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <div class="experience-main">
+          <div class="experience-role">Electrical Engineering Third Year Representative</div>
+          <div class="experience-company">Western University Engineering Society (UES)</div>
+          <p class="experience-desc">As the electrical engineering third year representative, I was voted to represent a student body of nearly 100 students in all manners of academic challenges and professor outreach.</p>
+        </div>
+      </div>
+
+      <div class="experience-row reveal">
+        <div class="experience-dates">July 2025 - May 2026</div>
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <div class="experience-main">
+          <div class="experience-role">Team Lead</div>
+          <div class="experience-company">We Build Solutions · Western University Club</div>
+          <p class="experience-desc">As a team lead for We Build Solutions, I work on running workshops to teach students how to use many different engineering softwares, as well as acting as a mentor and team lead for any ongoing projects.</p>
+        </div>
+      </div>
+
+      <div class="experience-row reveal">
+        <div class="experience-dates">April 2025 - January 2026</div>
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <div class="experience-main">
+          <div class="experience-role">Vice President of Logistics</div>
+          <div class="experience-company">CELC | CCLI: Canadian Engineering Leadership Conference 2026</div>
+          <p class="experience-desc">Overseeing all logistics operations for the national CELC event, including venue management, transportation, accommodations, and scheduling. Working closely with cross-functional teams to ensure smooth event execution and a high-quality experience for all delegates.</p>
+        </div>
+      </div>
+
+      <div class="experience-row reveal">
+        <div class="experience-dates">August 2024 - May 2025</div>
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <div class="experience-main">
+          <div class="experience-role">Electrical Lead</div>
+          <div class="experience-company">Western Engineering Electrium Mobility (WEEM)</div>
+          <p class="experience-desc">Served as Electrical Lead, directing the team's PCB development and mentoring members in Altium Designer for custom board design, including the AntiSpark PCB developed for the club's electric skateboard. Led hands-on soldering and assembly sessions to support the electrical team through the build process.</p>
+        </div>
+      </div>
+
+      <div class="experience-row reveal">
+        <div class="experience-dates">August 2024 - November 2024</div>
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <div class="experience-main">
+          <div class="experience-role">Sponsorship Director</div>
+          <div class="experience-company">Conference on Diversity in Engineering 2024 | Conférence sur la Diversité d'Ingénierie 2024</div>
+          <ul class="experience-bullets">
+            <li>Aided in organizing and monitoring the strategy and outreach for sponsorships, as well as keeping track of the confirmed sponsors.</li>
+            <li>Maintained connections with sponsors and negotiated contracts to ensure positive results for everyone.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="certifications" class="section wrap">
+    <p class="section-label reveal">Certifications</p>
+    <h2 class="section-title reveal">Certification & Qualifications</h2>
+    <div class="badge-grid">
+      <div class="badge-card reveal">
+        <div class="badge-icon">&#127942;</div>
+        <div class="badge-name">Certification / Award Name</div>
+        <div class="badge-issuer">Issuer &middot; Year</div>
+      </div>
+      <div class="badge-card reveal">
+        <div class="badge-icon">&#127942;</div>
+        <div class="badge-name">Certification / Award Name</div>
+        <div class="badge-issuer">Issuer &middot; Year</div>
+      </div>
+      <div class="badge-card reveal">
+        <div class="badge-icon">&#127942;</div>
+        <div class="badge-name">Certification / Award Name</div>
+        <div class="badge-issuer">Issuer &middot; Year</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section wrap">
+    <p class="section-label reveal">About</p>
+    <h2 class="section-title reveal">A bit about me</h2>
+    <p class="about-text reveal">
+      I am an aspiring engineer from London, Canada, and I'm excited to develop and work with electronic systems all over the world. I'm passionate about robotic systems, automation, and circuit design.
+    </p>
+    <ul class="skills-list reveal">
+      <li><img class="skill-icon" src="https://cdn.simpleicons.org/autocad/A7ACB3" alt="" loading="lazy">AutoCAD</li>
+      <li>Photometrics</li>
+      <li><img class="skill-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A7ACB3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='3' width='20' height='14' rx='2'/%3E%3Cline x1='8' y1='21' x2='16' y2='21'/%3E%3Cline x1='12' y1='17' x2='12' y2='21'/%3E%3C/svg%3E" alt="" loading="lazy">Visual Software</li>
+      <li>Electrical Panel Design</li>
+    </ul>
+  </section>
+
+  <section id="contact" class="section wrap contact-section">
+    <p class="section-label reveal">Contact</p>
+    <h2 class="section-title reveal">Let's talk</h2>
+    <p class="contact-lede reveal">
+      Open to opportunities and collaborations. Reach out any time.
+    </p>
+    <div class="contact-details reveal">
+      <a href="mailto:griffin.laprise@gmail.com" class="contact-line">griffin.laprise@gmail.com</a>
+      <a href="tel:+12266261559" class="contact-line">(226) 626-1559</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer wrap">
+  <div class="footer-grid">
+    <div class="reveal">
+      <div class="footer-name">Griffin Laprise</div>
+      <p class="footer-tagline">Engineering student and builder, always working on something new.</p>
+    </div>
+    <div class="reveal">
+      <div class="footer-heading">Connect</div>
+      <div class="footer-links">
+        <button id="copyEmailBtn" type="button">Copy email</button>
+        <button id="copyPhoneBtn" type="button">Copy phone</button>
+        <a href="https://www.linkedin.com/in/griffinlaprise/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="footer-heading">Explore</div>
+      <div class="footer-links">
+        <a href="#projects">Projects</a>
+        <a href="#hobbies">Hobbies</a>
+        <a href="#about">About</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; <span id="year"></span> Griffin Laprise. Built by hand.
+  </div>
+</footer>
+
+<div class="hover-preview" id="hoverPreview" aria-hidden="true">Preview</div>
+
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" type="button" aria-label="Close">&#10005;</button>
+    <div class="modal-visual" id="modalVisual"></div>
+    <div class="modal-body">
+      <div class="modal-tags" id="modalTags"></div>
+      <h3 class="modal-title" id="modalTitle"></h3>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="modal-links" id="modalLinks"></div>
+      <div class="modal-gallery" id="modalGallery"></div>
+    </div>
+  </div>
+</div>
+
+<button class="back-to-top" id="backToTop" type="button" aria-label="Back to top">&#8593;</button>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isTouchDevice = window.matchMedia('(hover: none)').matches;
+
+  // ---------- Scroll progress bar ----------
+  const progressBar = document.getElementById('progressBar');
+  function updateProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  // ---------- Scroll reveal ----------
+  const revealEls = document.querySelectorAll('.reveal');
+  if (prefersReducedMotion) {
+    revealEls.forEach(el => el.classList.add('in-view'));
+    document.querySelectorAll('.progress-fill').forEach(fill => {
+      const row = fill.closest('.inprogress-row');
+      fill.style.width = row.dataset.progress + '%';
+    });
+  } else {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          const fill = entry.target.querySelector('.progress-fill');
+          if (fill) {
+            const row = entry.target.closest('.inprogress-row') || entry.target;
+            const pct = row.dataset.progress || entry.target.dataset.progress;
+            requestAnimationFrame(() => { fill.style.width = pct + '%'; });
+          }
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => revealObserver.observe(el));
+  }
+
+  // ---------- Cursor-follow project preview ----------
+  const preview = document.getElementById('hoverPreview');
+  const projectRows = document.querySelectorAll('.project-row');
+  const previewGradients = {
+    '1': 'linear-gradient(135deg, #2E4A57, #1C1D20)',
+    '2': 'linear-gradient(135deg, #4A3A24, #1C1D20)',
+    '3': 'linear-gradient(135deg, #2E4A34, #1C1D20)',
+    '4': 'linear-gradient(135deg, #3E2E4A, #1C1D20)'
+  };
+
+  // Real project photos, keyed by each row's data-project value.
+  // Add more entries here as photos come in for other projects.
+  const projectImages = {
+    motor: 'images/projects/motor-1.jpg',
+    antispark: 'images/projects/antispark-1.jpg',
+    alu: 'images/projects/alu-1.jpg',
+    spotwelder: 'images/projects/spotwelder-1.jpg',
+    diyspotwelder: 'images/projects/diyspotwelder-1.jpg',
+    wavegen: 'images/projects/wavegen-1.jpg'
+  };
+
+  // Extra gallery photos per project, beyond the row's main image.
+  const projectGalleryImages = {
+    motor: [
+      'images/projects/motor-2.jpg',
+      'images/projects/motor-3.jpg',
+      'images/projects/motor-4.jpg'
+    ],
+    antispark: [
+      'images/projects/antispark-2.jpg',
+      'images/projects/antispark-3.jpg'
+    ],
+    alu: [
+      'images/projects/alu-2.jpg',
+      'images/projects/alu-3.jpg',
+      'images/projects/alu-4.jpg'
+    ],
+    spotwelder: [
+      'images/projects/spotwelder-2.jpg',
+      'images/projects/spotwelder-3.jpg',
+      'images/projects/spotwelder-4.jpg'
+    ],
+    diyspotwelder: [
+      'images/projects/diyspotwelder-2.jpg'
+    ],
+    wavegen: [
+      'images/projects/wavegen-2.jpg'
+    ]
+  };
+
+  // ---------- Populate marquee with real project thumbnails ----------
+  // Pulls from both finished projects and currently-building projects, but
+  // only ones that actually have a title photo — no-photo projects are left
+  // out of the ribbon for now rather than showing as a plain color tile.
+  const marqueeTrack = document.getElementById('marqueeTrack');
+  const marqueeSourceRows = document.querySelectorAll('#projectList .project-row, .inprogress-row');
+  let marqueeItemsHtml = '';
+  marqueeSourceRows.forEach(row => {
+    const name = row.querySelector('.project-name').textContent;
+    const projectKey = row.dataset.project;
+    if (projectImages[projectKey]) {
+      // These tiles are always solid white (has-photo), never the colored
+      // placeholder, so there's no color swap while the photo itself loads in.
+      marqueeItemsHtml += `<div class="marquee-item has-photo"><img src="${projectImages[projectKey]}" alt="${name}" decoding="sync"></div>`;
+    }
+  });
+  // Repeat the set enough times to comfortably out-width any real monitor,
+  // so there's always a deep buffer of tiles queued up off both edges.
+  marqueeTrack.innerHTML = marqueeItemsHtml.repeat(4);
+
+  // Force every marquee photo to fully decode right away, regardless of
+  // whether it's currently on-screen.
+  marqueeTrack.querySelectorAll('.marquee-item.has-photo img').forEach(img => {
+    if (img.decode) img.decode().catch(() => {});
+  });
+
+  // ---------- Drive the marquee with rAF + DOM recycling instead of a CSS
+  // keyframe loop. A single CSS animation sliding one huge (thousands-of-px)
+  // flex row forever asks the browser to keep that entire strip painted at
+  // all times; recycling tiles from the front of the strip to the back as
+  // they scroll past keeps the actual on-screen content window small and
+  // constant, so there's never a large stretch of never-yet-painted content
+  // for the browser to catch up on mid-scroll (which is what was showing up
+  // as tiles going blank for a few seconds before "popping in").
+  if (!prefersReducedMotion) {
+    const MARQUEE_SPEED = 55; // px per second, matches the old 32s/half-loop pace
+    const GAP_PX = 16; // must match the track's flex `gap` (1rem)
+    let offset = 0;
+    let lastTime = null;
+
+    function stepMarquee(time) {
+      if (lastTime === null) lastTime = time;
+      const dt = (time - lastTime) / 1000;
+      lastTime = time;
+      offset -= MARQUEE_SPEED * dt;
+
+      // Recycle any tile(s) that have fully scrolled past the left edge.
+      let first = marqueeTrack.firstElementChild;
+      while (first) {
+        const step = first.getBoundingClientRect().width + GAP_PX;
+        if (offset <= -step) {
+          offset += step;
+          marqueeTrack.appendChild(first);
+          first = marqueeTrack.firstElementChild;
+        } else {
+          break;
+        }
+      }
+
+      marqueeTrack.style.transform = `translate3d(${offset}px,0,0)`;
+      requestAnimationFrame(stepMarquee);
+    }
+    requestAnimationFrame(stepMarquee);
+  }
+
+  if (!isTouchDevice) {
+    projectRows.forEach(row => {
+      row.addEventListener('mouseenter', () => {
+        const key = row.getAttribute('data-preview-color');
+        const projectKey = row.dataset.project;
+        if (projectImages[projectKey]) {
+          preview.style.background = `#fff url('${projectImages[projectKey]}') center / contain no-repeat`;
+        } else {
+          preview.style.background = previewGradients[key] || previewGradients['1'];
+        }
+        preview.classList.add('visible');
+      });
+      row.addEventListener('mouseleave', () => {
+        preview.classList.remove('visible');
+      });
+      row.addEventListener('mousemove', (e) => {
+        preview.style.left = e.clientX + 'px';
+        preview.style.top = e.clientY + 'px';
+      });
+    });
+  }
+
+  // ---------- Copy email ----------
+  const copyBtn = document.getElementById('copyEmailBtn');
+  const emailAddress = 'griffin.laprise@gmail.com';
+  copyBtn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(emailAddress);
+      copyBtn.textContent = 'Copied!';
+      setTimeout(() => { copyBtn.textContent = 'Copy email'; }, 1800);
+    } catch (err) {
+      copyBtn.textContent = emailAddress;
+    }
+  });
+
+  // ---------- Copy phone ----------
+  const copyPhoneBtn = document.getElementById('copyPhoneBtn');
+  const phoneNumber = '226 626 1559';
+  copyPhoneBtn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(phoneNumber);
+      copyPhoneBtn.textContent = 'Copied!';
+      setTimeout(() => { copyPhoneBtn.textContent = 'Copy phone'; }, 1800);
+    } catch (err) {
+      copyPhoneBtn.textContent = phoneNumber;
+    }
+  });
+
+  // ---------- Magnetic buttons ----------
+  if (!isTouchDevice && !prefersReducedMotion) {
+    document.querySelectorAll('.magnetic').forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${x * 0.25}px, ${y * 0.35}px)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = 'translate(0, 0)';
+      });
+    });
+  }
+
+  // ---------- Hero photo tilt ----------
+  const heroTilt = document.getElementById('heroPhotoTilt');
+  const heroInner = heroTilt ? heroTilt.querySelector('.hero-photo-inner') : null;
+  const heroGlare = document.getElementById('heroPhotoGlare');
+  if (heroTilt && !isTouchDevice && !prefersReducedMotion) {
+    heroTilt.addEventListener('mousemove', (e) => {
+      const rect = heroTilt.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const rotateY = ((x / rect.width) - 0.5) * 22;
+      const rotateX = ((y / rect.height) - 0.5) * -22;
+      heroInner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+      heroGlare.style.background = `radial-gradient(circle at ${(x / rect.width) * 100}% ${(y / rect.height) * 100}%, rgba(255,255,255,0.35), transparent 60%)`;
+    });
+    heroTilt.addEventListener('mouseleave', () => {
+      heroInner.style.transform = 'rotateX(0) rotateY(0) scale(1)';
+    });
+  }
+
+  // ---------- Project filter ----------
+  const filterChips = document.querySelectorAll('.filter-chip');
+  const allProjectRows = document.querySelectorAll('#projectList .project-row');
+  const filterEmpty = document.getElementById('filterEmpty');
+
+  filterChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      filterChips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      const filter = chip.dataset.filter;
+      let visibleCount = 0;
+      allProjectRows.forEach(row => {
+        const rowCategories = (row.dataset.category || '').split(/\s+/);
+        const match = filter === 'all' || rowCategories.includes(filter);
+        row.classList.toggle('filtered-out', !match);
+        if (match) visibleCount++;
+      });
+      filterEmpty.hidden = visibleCount > 0;
+    });
+  });
+
+  // ---------- Project detail modal ----------
+  const modalBackdrop = document.getElementById('modalBackdrop');
+  const modalClose = document.getElementById('modalClose');
+  const modalVisual = document.getElementById('modalVisual');
+  const modalTags = document.getElementById('modalTags');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDesc = document.getElementById('modalDesc');
+  const modalLinks = document.getElementById('modalLinks');
+  const modalGallery = document.getElementById('modalGallery');
+
+  function openProjectModal(row) {
+    const name = row.querySelector('.project-name').textContent;
+    const tagline = row.querySelector('.project-tagline').textContent;
+    const tags = (row.dataset.tags || '').split(',').filter(Boolean);
+    const previewKey = row.getAttribute('data-preview-color') || '1';
+    const hasModel = row.dataset.model === 'true';
+    const projectKey = row.dataset.project;
+    const hasPhoto = !!projectImages[projectKey];
+    const isInProgress = row.classList.contains('inprogress-row');
+    modalGallery.innerHTML = '';
+
+    modalTitle.textContent = name;
+    if (isInProgress) {
+      const pct = row.dataset.progress;
+      modalDesc.textContent = row.dataset.description || (tagline + (pct ? ` Currently about ${pct}% complete.` : ''));
+      modalTags.innerHTML = tags.map(t => `<span>${t}</span>`).join('');
+      modalLinks.innerHTML = `<span style="font-weight:700; font-size:0.85rem; color:var(--accent);">In progress${pct ? ` &middot; ${pct}%` : ''}</span>`;
+    } else {
+      modalDesc.textContent = row.dataset.description || (tagline + ' More photos, a full write-up, and links will go here once this project page is filled in.');
+      modalTags.innerHTML = tags.map(t => `<span>${t}</span>`).join('');
+      if (row.dataset.report) {
+        modalLinks.innerHTML = `<a href="${row.dataset.report}" download="BLDC_Motor_Report.pdf" target="_blank" rel="noopener">Full report (PDF) &#8599;</a>`;
+      } else if (row.dataset.noLinks === 'true') {
+        modalLinks.innerHTML = '';
+      } else {
+        modalLinks.innerHTML = `
+          <a href="#">Code &#8599;</a>
+          <a href="#">Live / demo &#8599;</a>
+        `;
+      }
+    }
+
+    if (hasModel) {
+      modalVisual.style.background = 'transparent';
+      modalVisual.innerHTML = `
+        <model-viewer
+          src=""
+          camera-controls
+          auto-rotate
+          shadow-intensity="1"
+          style="background:transparent; width:100%; height:100%;">
+          <div slot="poster" style="display:flex;align-items:center;justify-content:center;height:100%;width:100%;color:rgba(255,255,255,0.55);font-size:0.8rem;text-align:center;padding:1rem;">
+            3D model viewer &mdash; add a .glb file path here to show a rotatable CAD model
+          </div>
+        </model-viewer>`;
+    } else if (hasPhoto) {
+      modalVisual.style.background = '#fff';
+      modalVisual.innerHTML = `<img src="${projectImages[projectKey]}" alt="${name}" style="width:100%;height:100%;object-fit:contain;">`;
+
+      const extraImages = projectGalleryImages[projectKey] || [];
+      if (extraImages.length > 0) {
+        const allImages = [projectImages[projectKey], ...extraImages];
+        modalGallery.innerHTML = allImages.map((src, i) =>
+          `<img src="${src}" class="${i === 0 ? 'active' : ''}" data-idx="${i}">`
+        ).join('');
+        modalGallery.querySelectorAll('img').forEach(thumb => {
+          thumb.addEventListener('click', () => {
+            modalVisual.innerHTML = `<img src="${thumb.src}" alt="${name}" style="width:100%;height:100%;object-fit:contain;">`;
+            modalGallery.querySelectorAll('img').forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+          });
+        });
+      }
+    } else {
+      modalVisual.innerHTML = 'Photo coming soon';
+      modalVisual.style.background = previewGradients[previewKey] || previewGradients['1'];
+    }
+
+    modalBackdrop.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeProjectModal() {
+    modalBackdrop.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+
+  // ---------- Hobby detail modal ----------
+  const hobbyDescriptions = {
+    woodworking: "Woodworking runs in the family, both of my grandfathers were woodworkers, and I grew up around sawdust and half-finished projects. I made my first cutting board in grade 9 and was hooked instantly. I've been building ever since, working my way up from small cutting boards to bigger furniture pieces, including the walnut desk pictured here and a matching end table for my living room, among others. Nearly all the wood I use comes from a tree my grandfather cut down many years ago, including that desk itself, so there's a nice bit of history built into every piece. Both of my grandfathers have since passed, but their tradition still lives on through me every time I'm out in the shop.",
+    watchrepair: "This one traces all the way back to my grandfather. He collected hundreds of clocks and loved nothing more than repairing and collecting them, and back in grade 9 he got me started on clock repair. I loved it right away, maybe it was one of the earliest signs of my engineering mindset, just watching the gears turn and mesh together. About a year later, a teacher at the classes I was attending asked if I'd ever considered working on watches. I hadn't, but I gave it a try and ended up enjoying it even more. The first watch I repaired outside of class was a Seiko, and I still wear it daily to this day. Since then I've worked on dozens of watches for repair and maintenance alike. There's something special about restoring something old and bringing it back to life, hearing the balance wheel's beating heart start ticking back and forth again, and the click of the pallet fork settling into rhythm.",
+    printing3d: "This one started in grade 9, in an intro to design course where I first learned to CAD in AutoCAD and Tinkercad, and made my first 3D print on the school's machine. About a year later my dad got our family its first 3D printer, and I was instantly hooked. I spent the next three years printing parts, toys, and models, and slowly upgraded the Ender 3 I had at the time, adding TL smoothers, converting it to direct drive, and giving it a bed leveling probe. By my first year of university I decided it was time to upgrade again, so I picked up a Neptune 3, which stayed printing almost non-stop through that whole first year. Wanting to try multicolor prints, I got a Bambu Lab P1S with AMS the summer before second year, and I've printed nearly 900 hours worth of items on it since, with no plans of stopping any time soon. What I really love is the process of CADing something and bringing it from nothing into a physical object, like the BLDC motor in the first image or the AC airlock shown in the second, which I designed after my home AC unit broke and I decided not just to fix it, but to make it better than it ever was. At this point I use my printer in almost every part of my life, from creating and fixing things to even making art.",
+    projectcars: "Some of my earliest memories are of building and working on something with my dad, hands covered in grease, trying to figure out why a part won't fit or why something won't start. That early exposure stuck with me, and it's turned into a lasting love for project cars. The Chevy K10 in the second photo is a good example, finished now after a lot of work. There's nothing quite like watching a project take shape like that, and then finally hearing the engine roar to life once it's all done.",
+    farming: "I grew up on a farm, and it's shaped a lot of how I approach building things. My dad has been farming his entire life, growing everything from tomatoes to corn and beans, and in 2002 he started our own greenhouse operation, which is still running today. The picture here is from back when I used to do pea harvesting, pulling 80+ hour weeks during the season. Those weeks taught me a lot of self-discipline, and that kind of hands-on, always-something-to-fix work ethic taught me a lot about problem-solving long before I ever picked up engineering.",
+    fishing: "Fishing holds a special place in my heart, my grandfather used to take me when I was a kid, and it's stuck with me ever since. One of my earliest memories is heading to our local fishing derby at the Rod and Gun Club, spending the entire day out on the water having the time of my life, only to reel in a single tiny bluegill by the end of it. These days, most weekends when the weather cooperates, you'll still find me down by the water with a rod in hand, more often than not just as the sun's coming up or going down. It's less about what I catch and more about the quiet, and the memories that come with it."
+  };
+
+  // Extra gallery photos per hobby, beyond the tile's main photo.
+  // Add more entries here as more photos come in.
+  const hobbyGalleryImages = {
+    projectcars: ['images/hobbies/projectcars-2.jpg', 'images/hobbies/projectcars-3.jpg', 'images/hobbies/projectcars-4.jpg', 'images/hobbies/projectcars-5.jpg'],
+    farming: [
+      'images/hobbies/farming-2.jpg',
+      'images/hobbies/farming-3.jpg',
+      'images/hobbies/farming-4.jpg',
+      'images/hobbies/farming-5.jpg'
+    ,
+      'images/hobbies/farming-6.jpg'
+    ],
+    fishing: ['images/hobbies/fishing-2.jpg', 'images/hobbies/fishing-3.jpg'],
+    watchrepair: [
+      'images/hobbies/watchrepair-2.jpg',
+      'images/hobbies/watchrepair-3.jpg',
+      'images/hobbies/watchrepair-4.jpg',
+      'images/hobbies/watchrepair-5.jpg'
+    ],
+    woodworking: [
+      'images/hobbies/woodworking-2.jpg',
+      'images/hobbies/woodworking-3.jpg'
+    ,
+      'images/hobbies/woodworking-4.jpg',
+      'images/hobbies/woodworking-5.jpg'
+    ],
+    printing3d: [
+      'images/hobbies/printing3d-2.jpg',
+      'images/hobbies/printing3d-3.jpg'
+    ]
+  };
+
+  function openHobbyModal(tile) {
+    const hobbyKey = tile.dataset.hobby;
+    const label = tile.querySelector('.hobby-label').textContent;
+    const mainImg = tile.querySelector('.hobby-photo');
+    const fitMode = mainImg && mainImg.classList.contains('contain-fit') ? 'contain' : 'cover';
+    const bgColor = fitMode === 'contain' ? '#fff' : '#000';
+
+    modalTitle.textContent = label;
+    modalDesc.textContent = hobbyDescriptions[hobbyKey] || 'Description coming soon.';
+    modalTags.innerHTML = '';
+    modalLinks.innerHTML = '';
+
+    modalVisual.style.background = bgColor;
+    modalVisual.innerHTML = mainImg
+      ? `<img src="${mainImg.src}" style="width:100%;height:100%;object-fit:${fitMode};">`
+      : 'Photo coming soon';
+
+    const extraImages = hobbyGalleryImages[hobbyKey] || [];
+    if (extraImages.length > 0) {
+      const allImages = mainImg ? [mainImg.src, ...extraImages] : extraImages;
+      modalGallery.innerHTML = allImages.map((src, i) =>
+        `<img src="${src}" class="${i === 0 ? 'active' : ''}" data-idx="${i}">`
+      ).join('');
+      modalGallery.querySelectorAll('img').forEach(thumb => {
+        thumb.addEventListener('click', () => {
+          modalVisual.style.background = bgColor;
+          modalVisual.innerHTML = `<img src="${thumb.src}" style="width:100%;height:100%;object-fit:${fitMode};">`;
+          modalGallery.querySelectorAll('img').forEach(t => t.classList.remove('active'));
+          thumb.classList.add('active');
+        });
+      });
+    } else {
+      modalGallery.innerHTML = '';
+    }
+
+    modalBackdrop.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  document.querySelectorAll('.hobby-tile[data-hobby]').forEach(tile => {
+    tile.addEventListener('click', () => openHobbyModal(tile));
+    tile.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openHobbyModal(tile); }
+    });
+  });
+
+  allProjectRows.forEach(row => {
+    row.addEventListener('click', () => openProjectModal(row));
+    row.setAttribute('tabindex', '0');
+    row.setAttribute('role', 'button');
+    row.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openProjectModal(row); }
+    });
+  });
+
+  document.querySelectorAll('.inprogress-row').forEach(row => {
+    row.addEventListener('click', () => openProjectModal(row));
+    row.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openProjectModal(row); }
+    });
+  });
+
+  modalClose.addEventListener('click', closeProjectModal);
+  modalBackdrop.addEventListener('click', (e) => { if (e.target === modalBackdrop) closeProjectModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeProjectModal(); });
+
+  // ---------- Back to top ----------
+  const backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    backToTop.classList.toggle('visible', window.scrollY > 600);
+  }, { passive: true });
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+  });
+
+  // ---------- Toast helper ----------
+  const toastEl = document.getElementById('toast');
+  let toastTimer;
+  function showToast(message, duration = 2600) {
+    toastEl.textContent = message;
+    toastEl.classList.add('visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('visible'), duration);
+  }
+
+  // ---------- Easter egg: Konami code ----------
+  const konamiSequence = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  let konamiProgress = 0;
+  document.addEventListener('keydown', (e) => {
+    const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+    if (key === konamiSequence[konamiProgress]) {
+      konamiProgress++;
+      if (konamiProgress === konamiSequence.length) {
+        konamiProgress = 0;
+        showToast('You found the secret. Nice. \u{1F6E0}\uFE0F', 3200);
+        if (!prefersReducedMotion) {
+          for (let i = 0; i < 24; i++) {
+            const bit = document.createElement('div');
+            bit.textContent = ['\u2699\uFE0F','\u26A1','\u{1F529}'][i % 3];
+            bit.style.position = 'fixed';
+            bit.style.left = Math.random() * 100 + 'vw';
+            bit.style.top = '-40px';
+            bit.style.fontSize = (14 + Math.random() * 14) + 'px';
+            bit.style.zIndex = '700';
+            bit.style.pointerEvents = 'none';
+            bit.style.transition = `transform ${2 + Math.random() * 1.5}s linear, opacity ${2 + Math.random() * 1.5}s linear`;
+            document.body.appendChild(bit);
+            requestAnimationFrame(() => {
+              bit.style.transform = `translateY(${window.innerHeight + 80}px) rotate(${Math.random() * 360}deg)`;
+              bit.style.opacity = '0';
+            });
+            setTimeout(() => bit.remove(), 3800);
+          }
+        }
+      }
+    } else {
+      konamiProgress = key === konamiSequence[0] ? 1 : 0;
+    }
+  });
+</script>
+
+</body>
+</html>
