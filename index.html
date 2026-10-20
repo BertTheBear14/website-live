@@ -821,7 +821,7 @@
     <h2 class="section-title reveal">Currently building</h2>
 
     <div class="project-list">
-      <div class="project-row inprogress-row reveal" data-progress="38" data-preview-color="1" data-project="alu" data-tags="Electrical,Digital Logic" tabindex="0" role="button"
+      <div class="project-row inprogress-row reveal" data-progress="38" data-preview-color="1" data-project="alu" data-thumbnail="images/projects/alu-4.jpg"data-tags="Electrical,Digital Logic" tabindex="0" role="button"
            data-description="A 16-bit Arithmetic Logic Unit built entirely from discrete logic gates: no microcontroller, no HDL, no code of any kind. It takes two 16-bit inputs and feeds them into a 16-bit full adder that also handles subtraction: the second input can be routed through a bank of XOR gates to form its two's complement, with a 16-bit 2-to-1 mux selecting between the regular value and the inverted one depending on whether the operation is addition or subtraction. Alongside the adder/subtractor, the ALU computes bitwise AND, OR, and XOR across both inputs, giving five selectable operations in total. A 16-bit 4-to-1 mux picks which result actually reaches the output, and the ALU also generates zero and overflow flags. The whole thing is hand-soldered onto a protoboard, built from well over 100 logic ICs and more than 300 individual logic gates.">
         <div class="project-left">
           <span class="cat-dot cat-elec" aria-hidden="true"></span>
@@ -1179,8 +1179,12 @@
     const extras = projectGalleryImages[key] || [];
     if (!projectImages[key] || extras.length === 0) return;
     const allPhotos = [projectImages[key], ...extras];
-    projectImages[key] = allPhotos[allPhotos.length - 1];
-    projectGalleryImages[key] = allPhotos.slice(0, -1);
+    // A row can pin a specific thumbnail with data-thumbnail="..." instead
+    // of using the newest photo.
+    const pinned = row.dataset.thumbnail;
+    const main = pinned && allPhotos.includes(pinned) ? pinned : allPhotos[allPhotos.length - 1];
+    projectImages[key] = main;
+    projectGalleryImages[key] = allPhotos.filter(src => src !== main);
   });
 
   // ---------- Populate marquee with real project thumbnails ----------
